@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: cveboard
+
+  datasource:
+    url: ${CVEBOARD_DATASOURCE_URL:jdbc:postgresql://localhost:5432/cveboard}
+    username: ${CVEBOARD_DATASOURCE_USERNAME:postgres}
+    password: ${CVEBOARD_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      host: ${CVEBOARD_REDIS_HOST:localhost}
+      port: ${CVEBOARD_REDIS_PORT:6379}
+      password: ${CVEBOARD_REDIS_PASSWORD:}
+      database: ${CVEBOARD_REDIS_DATABASE:0}
+
+  session:
+    timeout: ${CVEBOARD_SESSION_TIMEOUT:30m}
+
+server:
+  port: ${CVEBOARD_SERVER_PORT:8080}
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: lax
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
